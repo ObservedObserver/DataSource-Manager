@@ -5,24 +5,24 @@ class MysqlController extends Controller {
   async sqlQuery() {
     const { config, sql } = this.ctx.request.body;
     const { service } = this.ctx;
-    let result = await service.mysql.query({config, sql});
-    let success = typeof result === 'string' ? false : true;
+    const result = await service.mysql.query({ config, sql });
+    const success = typeof result !== 'string';
     this.ctx.body = {
       success,
-      result
+      result,
     };
   }
-  async getDatabases () {
+  async getDatabases() {
     const { config } = this.ctx.request.body;
     const { service } = this.ctx;
-    let sql = 'SHOW DATABASES;';
-    let result = await service.mysql.query({config, sql});
-    let success = typeof result === 'string' ? false : true;
+    const sql = 'SHOW DATABASES;';
+    const result = await service.mysql.query({ config, sql });
+    const success = typeof result !== 'string';
     this.ctx.body = {
       success,
-      result
-    }
+      result,
+    };
   }
- }
+}
 
 module.exports = MysqlController;
